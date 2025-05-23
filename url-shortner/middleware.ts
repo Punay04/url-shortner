@@ -13,12 +13,11 @@ export default clerkMiddleware(async (auth, req) => {
     const { userId } = await auth();
 
     if (!userId) {
-      // Not signed in, redirect to login
       return NextResponse.redirect(new URL("/login", req.url));
     }
   }
 });
-  
+
 export const config = {
   matcher: ["/((?!_next|.*\\..*).*)"],
 };
