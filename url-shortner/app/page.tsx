@@ -1,4 +1,3 @@
-"use client"
 import Footer from "@/components/footer";
 import Hero from "@/components/hero";
 import Navbar from "@/components/navbar";
@@ -13,7 +12,7 @@ export default function Home() {
       <Navbar />
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 py-8 lg:py-16 min-h-[calc(100vh-200px)]">
-          <div className="flex flex-col justify-center items-center text-center lg:text-left w-full">
+          <div className="flex flex-col justify-center items-center text-center w-full max-w-2xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-neutral-300 to-neutral-500 w-full">
               <p className="leading-tight">Shorten Your Links,</p>
               <p className="leading-tight">Expand Your Reach</p>
@@ -29,11 +28,7 @@ export default function Home() {
                 Get Started
               </Link>
               <Link
-                href={"#hero"}
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' });
-                }}
+                href={"/"}
                 className="text-black-300 text-lg md:text-xl font-semibold cursor-pointer border p-2 md:p-3 rounded-md hover:bg-blue-300 hover:text-white transition-colors bg-blue-300 "
               >
                 Learn More
@@ -45,9 +40,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div id="hero">
-        <Hero />
-      </div>
+      <Hero />
       <Footer />
       <TextHoverEffect text="Brevify" />
     </div>
