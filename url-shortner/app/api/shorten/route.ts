@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const { originalUrl, userId } = await req.json();
-  const shortId = nanoid();
+  const shortId = nanoid(6);
 
   if (!originalUrl || !userId) {
     return NextResponse.json(
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     console.log("url created");
     return NextResponse.json({
       success: true,
-      message: "url created",
+      shortUrl: newUrl.shortUrl,
     });
   } catch (error) {
     console.error("Error shortening URL:", error);

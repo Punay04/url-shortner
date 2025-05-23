@@ -1,19 +1,46 @@
-import { redirect } from "next/navigation";
-import { urlModel } from "../model/url";
+import { urlModel } from "@/app/model/url";
+import { main } from "@/lib/db";
 
-export async function Redirect({ params }: any) {
-  const { slug } = params;
+type Props = {
+  params: { slug: string };
+};
 
-  const isPresent = await urlModel.findOne({
-    shortUrl: slug,
-  });
+export async function GET(request: Request, props: Props) {
+  try {
+    await main();
 
-  if (!isPresent) {
-    redirect("/not-found");
+    const shortUrl = `${process.env.BASE_URL}${props.params.slug}`;
+
+    const url = await urlModel.findOne({ shortUrl });
+
+    if (!url) {
+      return new Response(null, {
+        status: 307,
+        headers: {
+          Location: "/not-found",
+        },
+      });
+    }
+
+    // Increment clicks
+    await urlModel.updateOne(
+      { shortUrl },
+      { $inc: { clicks: 1 } }
+    );
+
+    return new Response(null, {
+      status: 307,
+      headers: {
+        Location: url.originalUrl,
+      },
+    });
+  } catch (error) {
+    console.error("Error in redirect:", error);
+    return new Response(null, {
+      status: 307,
+      headers: {
+        Location: "/not-found",
+      },
+    });
   }
-
-  isPresent.clicks += 1;
-  await isPresent.save();
-
-  redirect(`/${isPresent.originalUrl}`);
 }

@@ -1,18 +1,31 @@
 "use client";
-import React, { useState } from 'react';
-import { Link, Copy, Check } from 'lucide-react';
+import React, { useState } from "react";
+import { Link, Copy, Check } from "lucide-react";
+import axios from "axios";
+import { useUser } from "@clerk/nextjs";
 
 const URLShorten = () => {
-  const [url, setUrl] = useState('');
+  const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
-  const [shortenedURL, setShortenedURL] = useState('');
+  const [shortenedURL, setShortenedURL] = useState("");
   const [copied, setCopied] = useState(false);
+  const { user } = useUser();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // TODO: Add API call to shorten URL
-    setLoading(false);
+    try {
+      const res = await axios.post("/api/shorten", {
+        originalUrl: url,
+        userId: user?.emailAddresses?.[0]?.emailAddress,
+      });
+      const shortUrl = res.data.shortUrl;
+      setShortenedURL(shortUrl);
+    } catch (error) {
+      console.error("Error shortening URL:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCopy = async () => {
@@ -24,20 +37,26 @@ const URLShorten = () => {
   return (
     <div className="ml-64 p-8 h-full bg-black animate-fadeIn">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-5xl font-bold text-gray-300 mb-4">
-          URL Shortener
-        </h1>
-        <p className="text-gray-500 text-xl mb-12">Transform your long URLs into short, memorable links</p>
+        <h1 className="text-5xl font-bold text-gray-300 mb-4">URL Shortener</h1>
+        <p className="text-gray-500 text-xl mb-12">
+          Transform your long URLs into short, memorable links
+        </p>
 
-        <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8 
-                    hover:border-green-500/50 transition-all duration-300 shadow-xl">
+        <div
+          className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8 
+                    hover:border-green-500/50 transition-all duration-300 shadow-xl"
+        >
           <div className="flex items-center gap-4 mb-8">
             <div className="p-4 bg-green-500/10 rounded-xl text-green-500">
               <Link size={28} />
             </div>
             <div>
-              <h2 className="text-gray-300 font-semibold text-2xl">Create Short URL</h2>
-              <p className="text-gray-500">Enter your long URL below to generate a shortened version</p>
+              <h2 className="text-gray-300 font-semibold text-2xl">
+                Create Short URL
+              </h2>
+              <p className="text-gray-500">
+                Enter your long URL below to generate a shortened version
+              </p>
             </div>
           </div>
 
@@ -68,15 +87,19 @@ const URLShorten = () => {
                   <span>Shortening...</span>
                 </div>
               ) : (
-                'Generate Short URL'
+                "Generate Short URL"
               )}
             </button>
           </form>
 
           {shortenedURL && (
-            <div className="mt-8 p-6 bg-green-500/5 border border-green-500/20 rounded-xl 
-                          backdrop-blur-sm animate-fadeIn">
-              <p className="text-gray-400 mb-3 text-sm uppercase tracking-wider font-medium">Your shortened URL</p>
+            <div
+              className="mt-8 p-6 bg-green-500/5 border border-green-500/20 rounded-xl 
+                          backdrop-blur-sm animate-fadeIn"
+            >
+              <p className="text-gray-400 mb-3 text-sm uppercase tracking-wider font-medium">
+                Your shortened URL
+              </p>
               <div className="flex items-center gap-4">
                 <input
                   type="text"

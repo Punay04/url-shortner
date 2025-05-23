@@ -1,10 +1,10 @@
-import { UserButton } from "@clerk/nextjs";
-import { auth } from "@clerk/nextjs/server";
+"use client";
+import { UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import React from "react";
 
 const Navbar = () => {
-  const user = auth();
+  const { isSignedIn } = useUser();
 
   return (
     <div className="flex flex-row w-full p-5 m-0">
@@ -12,7 +12,7 @@ const Navbar = () => {
         Brevify
       </Link>
       <div className="flex justify-end w-full gap-3">
-        {!user && (
+        {!isSignedIn && (
           <>
             <Link
               href={"/register"}
@@ -28,7 +28,7 @@ const Navbar = () => {
             </Link>
           </>
         )}
-        {<UserButton />}
+        {isSignedIn && <UserButton />}
       </div>
     </div>
   );

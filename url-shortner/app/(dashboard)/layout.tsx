@@ -1,13 +1,12 @@
-import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
-import { UserButton } from "@clerk/nextjs";
 import React from "react";
+import UserButtonWrapper from "./user-button-wrapper";
 
-const Dashboard = ({children} : any) => {
+const Dashboard = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="h-screen bg-black">
       <div className="flex justify-end p-7">
-        <UserButton />
+        <UserButtonWrapper />
       </div>
       {children}
       <Sidebar />

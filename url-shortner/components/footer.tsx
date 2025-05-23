@@ -1,9 +1,10 @@
+"use client";
 import React from "react";
 import Link from "next/link";
-import { auth } from "@clerk/nextjs/server";
+import { useUser } from "@clerk/nextjs";
 
 const Footer = () => {
-  const user = auth();
+  const { isSignedIn } = useUser();
 
   return (
     <div className="mt-50">
@@ -11,20 +12,22 @@ const Footer = () => {
         Make long URLs short, simple, and trackable.
       </p>
       <div className="flex justify-center items-center mt-7">
-        {!user && (
+        {!isSignedIn && (
           <Link
             href={"/login"}
-            className="text-blue-300 text-xl font-semibold cursoor-pointer border p-2 rounded-md"
+            className="text-blue-300 text-xl font-semibold cursor-pointer border p-2 rounded-md"
           >
             Get Started
           </Link>
         )}
-        <Link
-            href={"/login"}
-            className="text-blue-300 text-xl font-semibold cursoor-pointer border p-2 rounded-md"
+        {isSignedIn && (
+          <Link
+            href={"/dashboard"}
+            className="text-blue-300 text-xl font-semibold cursor-pointer border p-2 rounded-md"
           >
             Dashboard
           </Link>
+        )}
       </div>
     </div>
   );
