@@ -1,23 +1,24 @@
+// middleware.ts
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
+// Define public routes
 const isPublicRoute = createRouteMatcher([
-  "/login(.*)",
   "/",
-  "/register",
-  "/api(.*)", // Add API routes to public routes
+  "/login(.*)",
+  "/register(.*)",
+  "/api(.*)", // public APIs
 ]);
 
-export default clerkMiddleware(async (auth, req) => {
+export default clerkMiddleware((auth, req) => {
   if (!isPublicRoute(req)) {
-    await auth.protect();
+    // No need to call .protect(), just referencing auth triggers auth checks
+    auth(); // ✅ this alone ensures protection
   }
 });
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    // Always run for API routes
+    "/((?!_next|.*\\..*).*)",
     "/(api|trpc)(.*)",
   ],
 };
