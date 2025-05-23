@@ -7,15 +7,15 @@ const Footer = () => {
   const { isSignedIn } = useUser();
 
   return (
-    <div className="mt-50">
-      <p className="text-gray-300 text-3xl text-center">
+    <footer className="mt-20 md:mt-50 px-4 py-8 md:py-12">
+      <p className="text-gray-300 text-xl md:text-2xl lg:text-3xl text-center max-w-3xl mx-auto">
         Make long URLs short, simple, and trackable.
       </p>
-      <div className="flex justify-center items-center mt-7">
+      <div className="flex justify-center items-center mt-6 md:mt-8">
         {!isSignedIn && (
           <Link
             href={"/login"}
-            className="text-blue-300 text-xl font-semibold cursor-pointer border p-2 rounded-md"
+            className="text-blue-300 text-lg md:text-xl font-semibold cursor-pointer border p-2 md:p-3 rounded-md hover:bg-blue-300 hover:text-white transition-colors"
           >
             Get Started
           </Link>
@@ -23,13 +23,13 @@ const Footer = () => {
         {isSignedIn && (
           <Link
             href={"/dashboard"}
-            className="text-blue-300 text-xl font-semibold cursor-pointer border p-2 rounded-md"
+            className="text-blue-300 text-lg md:text-xl font-semibold cursor-pointer border p-2 md:p-3 rounded-md hover:bg-blue-300 hover:text-white transition-colors"
           >
             Dashboard
           </Link>
         )}
       </div>
-    </div>
+    </footer>
   );
 };
 

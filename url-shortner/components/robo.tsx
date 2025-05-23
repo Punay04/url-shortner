@@ -2,11 +2,11 @@ import Spline from "@splinetool/react-spline/next";
 
 export default function Robo() {
   return (
-    <main className="h-full ">
+    <div className="w-full h-[400px] md:h-[500px] lg:h-[600px] relative">
       <Spline
-        className="flex justify-center items-center pl-1"
+        className="w-full h-full"
         scene="https://prod.spline.design/q5Y2KYfgn4WXTm9D/scene.splinecode"
       />
-    </main>
+    </div>
   );
 }

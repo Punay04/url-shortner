@@ -35,7 +35,7 @@ const URLShorten = () => {
   };
 
   return (
-    <div className="ml-64 p-8 h-full bg-black animate-fadeIn">
+    <div className="lg:ml-64 p-8 h-full bg-black animate-fadeIn">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-5xl font-bold text-gray-300 mb-4">URL Shortener</h1>
         <p className="text-gray-500 text-xl mb-12">
