@@ -1,3 +1,4 @@
+"use client"
 import Footer from "@/components/footer";
 import Hero from "@/components/hero";
 import Navbar from "@/components/navbar";
@@ -28,7 +29,11 @@ export default function Home() {
                 Get Started
               </Link>
               <Link
-                href={"/"}
+                href={"#hero"}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' });
+                }}
                 className="text-black-300 text-lg md:text-xl font-semibold cursor-pointer border p-2 md:p-3 rounded-md hover:bg-blue-300 hover:text-white transition-colors bg-blue-300 "
               >
                 Learn More
@@ -40,7 +45,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Hero />
+      <div id="hero">
+        <Hero />
+      </div>
       <Footer />
       <TextHoverEffect text="Brevify" />
     </div>
