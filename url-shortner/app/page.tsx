@@ -4,6 +4,7 @@ import Navbar from "@/components/navbar";
 import Robo from "@/components/robo";
 import { Button } from "@/components/ui/button";
 import { TextHoverEffect } from "@/components/ui/text-hover-effect";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -20,18 +21,18 @@ export default function Home() {
               Clean, reliable, and trackable short URLs in seconds.
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8 w-full">
-              <Button
-                variant={"outline"}
-                className="text-blue-300 font-medium cursor-pointer text-lg sm:text-xl w-full sm:w-auto hover:bg-blue-300 hover:text-white transition-colors"
+              <Link
+                href={"/dashboard"}
+                className="text-blue-300 text-lg md:text-xl font-semibold cursor-pointer border p-2 md:p-3 rounded-md hover:bg-blue-300 hover:text-white transition-colors"
               >
                 Get Started
-              </Button>
-              <Button
-                variant={"destructive"}
-                className="bg-blue-300 font-medium cursor-pointer text-lg sm:text-xl text-gray-800 w-full sm:w-auto hover:bg-blue-400 transition-colors"
+              </Link>
+              <Link
+                href={"/"}
+                className="text-black-300 text-lg md:text-xl font-semibold cursor-pointer border p-2 md:p-3 rounded-md hover:bg-blue-300 hover:text-white transition-colors bg-blue-300 "
               >
                 Learn More
-              </Button>
+              </Link>
             </div>
           </div>
           <div className="flex justify-center items-center w-full">
