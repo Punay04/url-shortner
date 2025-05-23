@@ -3,7 +3,7 @@ import { main } from "@/lib/db";
 import { nanoid } from "nanoid";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   const { originalUrl, userId } = await req.json();
   const shortId = nanoid(6);
 
